@@ -1,0 +1,26 @@
+{
+  "itemgroup.mobsoftheunderground.mobsoftheunderground_items_group": "Mobs Of The Underground",
+
+  "item.mobsoftheunderground.geodite_spawn_egg": "Geodite Spawn Egg",
+  "item.mobsoftheunderground.shardling_spawn_egg": "Shardling Spawn Egg",
+  "item.mobsoftheunderground.amethyst_infected_spawn_egg": "Amethyst Infected Spawn Egg",
+
+  "item.mobsoftheunderground.living_amethyst": "Living Amethyst",
+  "item.mobsoftheunderground.amethyst_infected_flesh": "Amethyst Infected Flesh",
+
+  "tooltip.mobsoftheunderground.living_amethyst.tooltip_1": "Can be applied to armor piece to",
+  "tooltip.mobsoftheunderground.living_amethyst.tooltip_2": "permanently increase it's protection",
+
+  "entity.mobsoftheunderground.geodite": "Geodite",
+  "entity.mobsoftheunderground.shardling": "Shardling",
+  "entity.mobsoftheunderground.amethyst_infected": "Amethyst Infected",
+
+  "effect.mobsoftheunderground.amethyst_infection": "Amethyst Infection",
+  "effect.mobsoftheunderground.amethystization": "Amethystization",
+  "effect.mobsoftheunderground.fatal_amethystization": "Fatal Amethystization",
+
+  "item.minecraft.potion.effect.amethyst_infection_potion": "Amethyst Infection Potion",
+  "item.minecraft.splash_potion.effect.amethyst_infection_potion": "Amethyst Infection Splash Potion",
+  "item.minecraft.lingering_potion.effect.amethyst_infection_potion": "Amethyst Infection Lingering Potion",
+  "item.minecraft.tipped_arrow.effect.amethyst_infection_potion": "Arrow of Amethyst Infection"
+}

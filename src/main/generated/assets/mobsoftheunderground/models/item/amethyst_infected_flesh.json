@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mobsoftheunderground:item/amethyst_infected_flesh"
+  }
+}

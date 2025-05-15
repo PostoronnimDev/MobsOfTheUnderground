@@ -3,20 +3,23 @@
 	"id": "mobsoftheunderground",
 	"version": "${version}",
 	"name": "Mobs Of The Underground",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "",
 	"authors": [
-		"Me!"
+		"PostoronnimDev"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "",
+		"sources": ""
 	},
-	"license": "CC0-1.0",
+	"license": "GPLv3",
 	"icon": "assets/mobsoftheunderground/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"net.postoronnim.mobsoftheunderground.MobsOfTheUnderground"
+		],
+		"client": [
+			"net.postoronnim.mobsoftheunderground.MobsOfTheUndergroundClient"
 		],
 		"fabric-datagen": [
 			"net.postoronnim.mobsoftheunderground.MobsOfTheUndergroundDataGenerator"
