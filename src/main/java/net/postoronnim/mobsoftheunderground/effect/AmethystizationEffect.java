@@ -45,6 +45,6 @@ public class AmethystizationEffect extends StatusEffect {
 
     @Override
     public void onEntityRemoval(LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
-        ShardlingSpawner.spawnShardlings(entity, entity.getPos(), 1);
+        ShardlingSpawner.spawnShardlings(entity, entity.getPos(), 2);
     }
 }

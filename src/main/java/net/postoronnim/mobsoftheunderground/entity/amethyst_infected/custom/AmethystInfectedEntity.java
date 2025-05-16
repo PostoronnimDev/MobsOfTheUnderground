@@ -49,7 +49,8 @@ public class AmethystInfectedEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 35.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12F)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0)
-                .add(EntityAttributes.GENERIC_ARMOR, 2.0);
+                .add(EntityAttributes.GENERIC_ARMOR, 6.0)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20);
     }
 
     @Override

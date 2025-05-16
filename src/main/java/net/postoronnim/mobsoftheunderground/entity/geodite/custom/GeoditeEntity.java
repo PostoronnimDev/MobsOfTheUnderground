@@ -75,8 +75,9 @@ public class GeoditeEntity extends HostileEntity implements DelayedAttacker {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 150)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 10)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 10);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 12)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 10)
+                .add(EntityAttributes.GENERIC_ARMOR, 8);
     }
 
     @Override

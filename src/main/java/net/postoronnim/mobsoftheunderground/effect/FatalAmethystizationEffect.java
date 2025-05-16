@@ -9,10 +9,13 @@ import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.postoronnim.mobsoftheunderground.MobsOfTheUnderground;
+import net.postoronnim.mobsoftheunderground.item.ModItems;
 import net.postoronnim.mobsoftheunderground.util.ShardlingSpawner;
 
 public class FatalAmethystizationEffect extends StatusEffect {
@@ -30,8 +33,11 @@ public class FatalAmethystizationEffect extends StatusEffect {
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
 
         if (entity.getStatusEffect(ModEffects.FATAL_AMETHYSTIZATION).getDuration() <= 1) {
-            entity.damage(entity.getDamageSources().create(DamageTypes.GENERIC), 40f);
-            ShardlingSpawner.spawnShardlings(entity, entity.getPos(), 3);
+            if(entity.getWorld() instanceof ServerWorld serverWorld) {
+                entity.damage(entity.getDamageSources().create(DamageTypes.GENERIC), 40f);
+                entity.dropStack(new ItemStack(ModItems.LIVING_AMETHYST));
+                ShardlingSpawner.spawnShardlings(entity, entity.getPos(), 3);
+            }
             return false;
         }
 

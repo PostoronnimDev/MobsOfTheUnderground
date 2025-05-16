@@ -103,8 +103,8 @@ public class ShardlingBrain {
                 10,
                 ImmutableList.of(
                         RangedApproachTask.create(ATTACK_WALK_SPEED),
-                        MeleeAttackTask.create(30),
                         UpdateAttackTargetTask.create(ShardlingBrain::getPreferredTarget),
+                        MeleeAttackTask.create(30),
                         ForgetAttackTargetTask.create()
                 ),
                 MemoryModuleType.ATTACK_TARGET
