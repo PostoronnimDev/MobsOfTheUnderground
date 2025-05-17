@@ -14,15 +14,15 @@ import net.postoronnim.mobsoftheunderground.item.custom.LivingAmethyst;
 public class ModItems {
 
     public static final Item GEODITE_SPAWN_EGG = registerItem("geodite_spawn_egg",
-            new SpawnEggItem(ModEntities.GEODITE, 0x3a3b48, 0xa678f1,
+            new SpawnEggItem(ModEntities.GEODITE,
                     new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(MobsOfTheUnderground.MOD_ID, "geodite_spawn_egg")))));
 
     public static final Item SHARDLING_SPAWN_EGG = registerItem("shardling_spawn_egg",
-            new SpawnEggItem(ModEntities.SHARDLING, 0x797979, 0xfecbe6,
+            new SpawnEggItem(ModEntities.SHARDLING,
                     new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(MobsOfTheUnderground.MOD_ID, "shardling_spawn_egg")))));
 
     public static final Item AMETHYST_INFECTED_SPAWN_EGG = registerItem("amethyst_infected_spawn_egg",
-            new SpawnEggItem(ModEntities.AMETHYST_INFECTED, 0x60692d, 0xcfa0f3,
+            new SpawnEggItem(ModEntities.AMETHYST_INFECTED,
                     new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(MobsOfTheUnderground.MOD_ID, "amethyst_infected_spawn_egg")))));
 
     public static final Item LIVING_AMETHYST = registerItem("living_amethyst",
