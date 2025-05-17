@@ -31,7 +31,7 @@ public class AmethystInfectionEffect extends StatusEffect {
 
     public AmethystInfectionEffect(StatusEffectCategory category, int color, ParticleEffect particleEffect) {
         super(category, color, particleEffect);
-        this.addAttributeModifier(EntityAttributes.GENERIC_ARMOR, AMETHYST_INFECTION_ARMOR_MODIFIER, 4f, EntityAttributeModifier.Operation.ADD_VALUE);
+        this.addAttributeModifier(EntityAttributes.ARMOR, AMETHYST_INFECTION_ARMOR_MODIFIER, 4f, EntityAttributeModifier.Operation.ADD_VALUE);
         this.applySound(SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK);
     }
 
@@ -64,7 +64,7 @@ public class AmethystInfectionEffect extends StatusEffect {
     }
 
     @Override
-    public void onEntityRemoval(LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
+    public void onEntityRemoval(ServerWorld world, LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
         ShardlingSpawner.spawnShardlings(entity, entity.getPos(), 1);
     }
 }

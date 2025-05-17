@@ -21,6 +21,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -73,11 +74,11 @@ public class GeoditeEntity extends HostileEntity implements DelayedAttacker {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 150)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 12)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 10)
-                .add(EntityAttributes.GENERIC_ARMOR, 8);
+                .add(EntityAttributes.MAX_HEALTH, 150)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.4)
+                .add(EntityAttributes.ATTACK_DAMAGE, 12)
+                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 10)
+                .add(EntityAttributes.ARMOR, 8);
     }
 
     @Override
@@ -92,13 +93,13 @@ public class GeoditeEntity extends HostileEntity implements DelayedAttacker {
     }
 
     @Override
-    protected void mobTick() {
-        this.getWorld().getProfiler().push("geoditeBrain");
+    protected void mobTick(ServerWorld serverWorld) {
+        Profilers.get().push("geoditeBrain");
         Brain<?> brain = this.getBrain();
         ((Brain<GeoditeEntity>)brain).tick((ServerWorld)this.getWorld(), this);
         GeoditeBrain.updateActivities(this);
-        this.getWorld().getProfiler().pop();
-        super.mobTick();
+        Profilers.get().pop();
+        super.mobTick(serverWorld);
     }
 
     @Override
@@ -121,9 +122,9 @@ public class GeoditeEntity extends HostileEntity implements DelayedAttacker {
                         ? brain.getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get() : null;
                 this.playSound(SoundEvents.ENTITY_WARDEN_ATTACK_IMPACT, 10.0F, this.getSoundPitch());
                 this.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, 10f, this.getSoundPitch());
-                if (target != null) {
+                if (target != null && this.getWorld() instanceof ServerWorld serverWorld) {
                     if(this.isInAttackRange(target)) {
-                        this.tryAttack(target);
+                        this.tryAttack(serverWorld, target);
                     }
                 }
                 this.dataTracker.set(DELAYING_ATTACK, false);
@@ -150,19 +151,19 @@ public class GeoditeEntity extends HostileEntity implements DelayedAttacker {
     }
 
     @Override
-    protected void applyDamage(DamageSource source, float amount) {
+    protected void applyDamage(ServerWorld serverWorld, DamageSource source, float amount) {
         if (amount > 8f) {
-            if(this.getWorld().getRandom().nextFloat() > 0.5f) {
+            if(serverWorld.getRandom().nextFloat() > 0.5f) {
                 ShardlingSpawner.spawnParticleExplosion(this, new Vec3d(this.getX(), this.getY() + 1, this.getZ()), 20);
             }
         }
-        super.applyDamage(source, amount);
+        super.applyDamage(serverWorld, source, amount);
     }
 
     @Override
-    public boolean tryAttack(Entity target) {
-        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-        return super.tryAttack(target);
+    public boolean tryAttack(ServerWorld serverWorld, Entity target) {
+        serverWorld.sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        return super.tryAttack(serverWorld, target);
     }
 
     @Override

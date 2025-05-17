@@ -6,8 +6,11 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.postoronnim.mobsoftheunderground.entity.ModEntities;
 import net.postoronnim.mobsoftheunderground.entity.amethyst_infected.client.AmethystInfectedModel;
+import net.postoronnim.mobsoftheunderground.entity.amethyst_infected.client.AmethystInfectedRenderer;
 import net.postoronnim.mobsoftheunderground.entity.geodite.client.GeoditeModel;
+import net.postoronnim.mobsoftheunderground.entity.geodite.client.GeoditeRenderer;
 import net.postoronnim.mobsoftheunderground.entity.shardling.client.ShardlingModel;
+import net.postoronnim.mobsoftheunderground.entity.shardling.client.ShardlingRenderer;
 import net.postoronnim.mobsoftheunderground.particle.AmethystParticle;
 import net.postoronnim.mobsoftheunderground.particle.ModParticles;
 import net.postoronnim.mobsoftheunderground.util.renderer.EmissiveRenderer;
@@ -22,25 +25,13 @@ public class MobsOfTheUndergroundClient implements ClientModInitializer {
     public void onInitializeClient() {
 
         EntityModelLayerRegistry.registerModelLayer(GeoditeModel.GEODITE, GeoditeModel::getTexturedModelData);
-        EntityRendererRegistry.register(ModEntities.GEODITE, (context) ->
-                new EmissiveRenderer<>(context,
-                        new GeoditeModel<>(context.getPart(GeoditeModel.GEODITE)),
-                        0.5f, "textures/entity/geodite/geodite.png",
-                        "textures/entity/geodite/geodite_emissive.png"));
+        EntityRendererRegistry.register(ModEntities.GEODITE, GeoditeRenderer::new);
 
         EntityModelLayerRegistry.registerModelLayer(AmethystInfectedModel.AMETHYST_INFECTED, AmethystInfectedModel::getTexturedModelData);
-        EntityRendererRegistry.register(ModEntities.AMETHYST_INFECTED, (context) ->
-                new EmissiveRenderer<>(context,
-                new AmethystInfectedModel<>(context.getPart(AmethystInfectedModel.AMETHYST_INFECTED)),
-                0.5f, "textures/entity/amethyst_infected/amethyst_infected.png",
-                        "textures/entity/amethyst_infected/amethyst_infected_emissive.png"));
+        EntityRendererRegistry.register(ModEntities.AMETHYST_INFECTED, AmethystInfectedRenderer::new);
 
         EntityModelLayerRegistry.registerModelLayer(ShardlingModel.SHARDLING, ShardlingModel::getTexturedModelData);
-        EntityRendererRegistry.register(ModEntities.SHARDLING, (context) ->
-                new EmissiveRenderer<>(context,
-                        new ShardlingModel<>(context.getPart(ShardlingModel.SHARDLING)),
-                        0.5f, "textures/entity/shardling/shardling.png",
-                        "textures/entity/shardling/shardling_emissive.png"));
+        EntityRendererRegistry.register(ModEntities.SHARDLING, ShardlingRenderer::new);
 
         ParticleFactoryRegistry.getInstance().register(ModParticles.AMETHYST_PARTICLE, AmethystParticle.Factory::new);
     }

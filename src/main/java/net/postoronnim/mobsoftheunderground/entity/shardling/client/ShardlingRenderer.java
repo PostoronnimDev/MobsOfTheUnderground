@@ -7,21 +7,34 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.postoronnim.mobsoftheunderground.MobsOfTheUnderground;
 import net.postoronnim.mobsoftheunderground.entity.geodite.client.GeoditeModel;
+import net.postoronnim.mobsoftheunderground.entity.geodite.client.GeoditeRendererState;
 import net.postoronnim.mobsoftheunderground.entity.geodite.custom.GeoditeEntity;
 import net.postoronnim.mobsoftheunderground.entity.shardling.custom.ShardlingEntity;
+import net.postoronnim.mobsoftheunderground.util.feature.GlowLayer;
 
-public class ShardlingRenderer extends MobEntityRenderer<ShardlingEntity, ShardlingModel<ShardlingEntity>> {
+public class ShardlingRenderer extends MobEntityRenderer<ShardlingEntity, ShardlingRendererState, ShardlingModel> {
+    private final String PATH = "textures/entity/shardling/shardling.png";
+    private final String EMISSIVE = "textures/entity/shardling/shardling_emissive.png";
+
     public ShardlingRenderer(EntityRendererFactory.Context context) {
-        super(context, new ShardlingModel<>(context.getPart(ShardlingModel.SHARDLING)), 0.3f);
+        super(context, new ShardlingModel(context.getPart(ShardlingModel.SHARDLING)), 0.3f);
+        this.addFeature(new GlowLayer<>(this, Identifier.of(MobsOfTheUnderground.MOD_ID, EMISSIVE)));
     }
 
     @Override
-    public Identifier getTexture(ShardlingEntity entity) {
-        return Identifier.of(MobsOfTheUnderground.MOD_ID,  "textures/entity/shardling/shardling.png");
+    public ShardlingRendererState createRenderState() {
+        return new ShardlingRendererState();
     }
 
     @Override
-    public void render(ShardlingEntity livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        super.render(livingEntity, f, g, matrixStack, vertexConsumerProvider, i);
+    public void updateRenderState(ShardlingEntity entity, ShardlingRendererState rendererState, float f) {
+        super.updateRenderState(entity, rendererState, f);
+        rendererState.attackAnimationState = entity.attackAnimationState;
+        rendererState.idleAnimationState = entity.idleAnimationState;
+    }
+
+    @Override
+    public Identifier getTexture(ShardlingRendererState state) {
+        return Identifier.of(MobsOfTheUnderground.MOD_ID,  PATH);
     }
 }

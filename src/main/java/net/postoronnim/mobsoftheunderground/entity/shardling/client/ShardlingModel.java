@@ -2,16 +2,17 @@ package net.postoronnim.mobsoftheunderground.entity.shardling.client;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.postoronnim.mobsoftheunderground.MobsOfTheUnderground;
 import net.postoronnim.mobsoftheunderground.entity.geodite.client.GeoditeAnimations;
+import net.postoronnim.mobsoftheunderground.entity.geodite.client.GeoditeRendererState;
 import net.postoronnim.mobsoftheunderground.entity.geodite.custom.GeoditeEntity;
 import net.postoronnim.mobsoftheunderground.entity.shardling.custom.ShardlingEntity;
 
-public class ShardlingModel<T extends ShardlingEntity> extends SinglePartEntityModel<T> {
+public class ShardlingModel extends EntityModel<ShardlingRendererState> {
     public static final EntityModelLayer SHARDLING = new EntityModelLayer(Identifier.of(MobsOfTheUnderground.MOD_ID, "shardling"), "main");
     private final ModelPart root;
     private final ModelPart body;
@@ -21,6 +22,7 @@ public class ShardlingModel<T extends ShardlingEntity> extends SinglePartEntityM
     private final ModelPart leftBackLeg;
     private final ModelPart rightBackLeg;
     public ShardlingModel(ModelPart root) {
+        super(root);
         this.root = root.getChild("root");
         this.body = this.root.getChild("body");
         this.bodyCrystals = this.body.getChild("bodyCrystals");
@@ -58,24 +60,11 @@ public class ShardlingModel<T extends ShardlingEntity> extends SinglePartEntityM
     }
 
     @Override
-    public void setAngles(T entity, float limbAngle, float limbDistance, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
+    public void setAngles(ShardlingRendererState state) {
+        this.getRootPart().traverse().forEach(ModelPart::resetTransform);
 
-        this.animateMovement(ShardlingAnimations.WALK, limbAngle, limbDistance, 2f, 2.5f);
-        this.updateAnimation(entity.idleAnimationState, ShardlingAnimations.IDLE, ageInTicks, 1f);
-        this.updateAnimation(entity.attackAnimationState, ShardlingAnimations.ATTACK, ageInTicks, 1f);
-
+        this.animateWalking(ShardlingAnimations.WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 2f, 2.5f);
+        this.animate(state.idleAnimationState, ShardlingAnimations.IDLE, state.age, 1f);
+        this.animate(state.attackAnimationState, ShardlingAnimations.ATTACK, state.age, 1f);
     }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-        root.render(matrices, vertexConsumer, light, overlay, color);
-    }
-
-    @Override
-    public ModelPart getPart() {
-        return root;
-    }
-
-
 }

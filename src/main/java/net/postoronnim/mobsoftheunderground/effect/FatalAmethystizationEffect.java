@@ -26,16 +26,16 @@ public class FatalAmethystizationEffect extends StatusEffect {
     public FatalAmethystizationEffect(StatusEffectCategory category, int color, ParticleEffect particleEffect) {
         super(category, color, particleEffect);
         this.applySound(SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK);
-        this.addAttributeModifier(EntityAttributes.GENERIC_ARMOR, FATAL_AMETHYSTIZATION_ARMOR_MODIFIER, 8f, EntityAttributeModifier.Operation.ADD_VALUE);
-        this.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, FATAL_AMETHYSTIZATION_SPEED_MODIFIER, -0.3f, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        this.addAttributeModifier(EntityAttributes.ARMOR, FATAL_AMETHYSTIZATION_ARMOR_MODIFIER, 8f, EntityAttributeModifier.Operation.ADD_VALUE);
+        this.addAttributeModifier(EntityAttributes.MOVEMENT_SPEED, FATAL_AMETHYSTIZATION_SPEED_MODIFIER, -0.3f, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
     }
 
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
 
         if (entity.getStatusEffect(ModEffects.FATAL_AMETHYSTIZATION).getDuration() <= 1) {
             if(entity.getWorld() instanceof ServerWorld serverWorld) {
-                entity.damage(entity.getDamageSources().create(DamageTypes.GENERIC), 40f);
-                entity.dropStack(new ItemStack(ModItems.LIVING_AMETHYST));
+                entity.damage(serverWorld, entity.getDamageSources().create(DamageTypes.GENERIC), 40f);
+                entity.dropStack(serverWorld, new ItemStack(ModItems.LIVING_AMETHYST));
                 ShardlingSpawner.spawnShardlings(entity, entity.getPos(), 3);
             }
             return false;
@@ -50,7 +50,7 @@ public class FatalAmethystizationEffect extends StatusEffect {
     }
 
     @Override
-    public void onEntityRemoval(LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
+    public void onEntityRemoval(ServerWorld world, LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
         ShardlingSpawner.spawnShardlings(entity, entity.getPos(), 2);
     }
 }

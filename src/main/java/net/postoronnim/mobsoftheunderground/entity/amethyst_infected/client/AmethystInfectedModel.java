@@ -5,14 +5,15 @@ import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.postoronnim.mobsoftheunderground.MobsOfTheUnderground;
 import net.postoronnim.mobsoftheunderground.entity.amethyst_infected.custom.AmethystInfectedEntity;
 
-public class AmethystInfectedModel<T extends AmethystInfectedEntity> extends SinglePartEntityModel<T> {
+public class AmethystInfectedModel extends EntityModel<AmethystInfectedRendererState> {
     public static final EntityModelLayer AMETHYST_INFECTED = new EntityModelLayer(Identifier.of(MobsOfTheUnderground.MOD_ID, "amethyst_infected"), "main");
 
     private final ModelPart root;
@@ -29,6 +30,7 @@ public class AmethystInfectedModel<T extends AmethystInfectedEntity> extends Sin
     private final ModelPart rightLeg;
     private final ModelPart leftLeg;
     public AmethystInfectedModel(ModelPart root) {
+        super(root);
         this.root = root.getChild("root");
         this.head = this.root.getChild("head");
         this.headMain = this.head.getChild("headMain");
@@ -99,21 +101,11 @@ public class AmethystInfectedModel<T extends AmethystInfectedEntity> extends Sin
     }
 
     @Override
-    public void setAngles(T entity, float limbAngle, float limbDistance, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
+    public void setAngles(AmethystInfectedRendererState state) {
+        this.getRootPart().traverse().forEach(ModelPart::resetTransform);
 
-        this.animateMovement(AmethystInfectedAnimations.WALK, limbAngle, limbDistance, 8f, 10f);
-        this.updateAnimation(entity.idleAnimationState, AmethystInfectedAnimations.IDLE, ageInTicks, 1f);
-        this.updateAnimation(entity.attackAnimationState, AmethystInfectedAnimations.ATTACK, ageInTicks, 1f);
-    }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-        root.render(matrices, vertexConsumer, light, overlay);
-    }
-
-    @Override
-    public ModelPart getPart() {
-        return root;
+        this.animateWalking(AmethystInfectedAnimations.WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 8f, 10f);
+        this.animate(state.idleAnimationState, AmethystInfectedAnimations.IDLE, state.age, 1f);
+        this.animate(state.attackAnimationState, AmethystInfectedAnimations.ATTACK, state.age, 1f);
     }
 }

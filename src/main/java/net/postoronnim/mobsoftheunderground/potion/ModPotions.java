@@ -15,7 +15,7 @@ import javax.swing.*;
 public class ModPotions {
 
     public static final RegistryEntry<Potion> AMETHYST_INFECTION_POTION = registerPotion("amethyst_infection_potion",
-            new Potion(new StatusEffectInstance(ModEffects.AMETHYST_INFECTION, 6000, 0)));
+            new Potion("amethyst_infection_potion", new StatusEffectInstance(ModEffects.AMETHYST_INFECTION, 6000, 0)));
 
     private static RegistryEntry<Potion> registerPotion(String name, Potion potion) {
         return Registry.registerReference(Registries.POTION, Identifier.of(MobsOfTheUnderground.MOD_ID, name), potion);

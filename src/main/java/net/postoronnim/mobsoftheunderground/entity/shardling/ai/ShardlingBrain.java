@@ -14,6 +14,8 @@ import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.entity.mob.WardenEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.math.random.Random;
 import net.postoronnim.mobsoftheunderground.effect.ModEffects;
 import net.postoronnim.mobsoftheunderground.entity.amethyst_infected.custom.AmethystInfectedEntity;
@@ -75,7 +77,7 @@ public class ShardlingBrain {
                 Activity.CORE,
                 0,
                 ImmutableList.of(
-                        new LookAroundTask(45, 90),
+                        new LookAroundTask(UniformIntProvider.create(30, 60), 90, 45, 90),
                         new MoveToTargetTask()
                 )
         );
@@ -92,7 +94,7 @@ public class ShardlingBrain {
                                         Pair.of(new WaitTask(20, 100), 1)
                                 ))
                         ),
-                        Pair.of(3, UpdateAttackTargetTask.create(ShardlingBrain::getPreferredTarget))
+                        Pair.of(3, UpdateAttackTargetTask.create(new ShardlingTargetGetter()))
                 )
         );
     }
@@ -103,7 +105,7 @@ public class ShardlingBrain {
                 10,
                 ImmutableList.of(
                         RangedApproachTask.create(ATTACK_WALK_SPEED),
-                        UpdateAttackTargetTask.create(ShardlingBrain::getPreferredTarget),
+                        UpdateAttackTargetTask.create(new ShardlingTargetGetter()),
                         MeleeAttackTask.create(30),
                         ForgetAttackTargetTask.create()
                 ),
@@ -111,42 +113,44 @@ public class ShardlingBrain {
         );
     }
 
-    private static Optional<? extends LivingEntity> getPreferredTarget(ShardlingEntity entity) {
-
-        Optional<LivingEntity> optional = Optional.empty();
-
-        if(entity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS).isPresent()) {
-            var targets = entity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS).get().iterate(livingEntity
-                    -> (livingEntity.getStatusEffect(ModEffects.AMETHYST_INFECTION) == null
-                    && livingEntity.getStatusEffect(ModEffects.AMETHYSTIZATION) == null
-                    && livingEntity.getStatusEffect(ModEffects.FATAL_AMETHYSTIZATION) == null
-                    && !(livingEntity instanceof ShardlingEntity)
-                    && !(livingEntity instanceof GeoditeEntity)
-                    && !(livingEntity instanceof AmethystInfectedEntity)));
-
-            LivingEntity nearestTarget = null;
-
-            for (var target : targets) {
-                if (nearestTarget == null) {
-                    nearestTarget = target;
-                } else {
-                    if (entity.distanceTo(target) < entity.distanceTo(nearestTarget)) {
-                        nearestTarget = target;
-                    }
-                }
-            }
-
-            if(nearestTarget != null) {
-                optional =  Optional.of(nearestTarget);
-            }
-        }
-
-        return optional;
-    }
-
     public static void updateActivities(ShardlingEntity entity) {
         Brain<?> brain = entity.getBrain();
         brain.resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
     }
 
+    public static class ShardlingTargetGetter implements UpdateAttackTargetTask.TargetGetter<ShardlingEntity> {
+
+        @Override
+        public Optional<? extends LivingEntity> get(ServerWorld world, ShardlingEntity entity) {
+            Optional<LivingEntity> optional = Optional.empty();
+
+            if(entity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS).isPresent()) {
+                var targets = entity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS).get().iterate(livingEntity
+                        -> (livingEntity.getStatusEffect(ModEffects.AMETHYST_INFECTION) == null
+                        && livingEntity.getStatusEffect(ModEffects.AMETHYSTIZATION) == null
+                        && livingEntity.getStatusEffect(ModEffects.FATAL_AMETHYSTIZATION) == null
+                        && !(livingEntity instanceof ShardlingEntity)
+                        && !(livingEntity instanceof GeoditeEntity)
+                        && !(livingEntity instanceof AmethystInfectedEntity)));
+
+                LivingEntity nearestTarget = null;
+
+                for (var target : targets) {
+                    if (nearestTarget == null) {
+                        nearestTarget = target;
+                    } else {
+                        if (entity.distanceTo(target) < entity.distanceTo(nearestTarget)) {
+                            nearestTarget = target;
+                        }
+                    }
+                }
+
+                if(nearestTarget != null) {
+                    optional =  Optional.of(nearestTarget);
+                }
+            }
+
+            return optional;
+        }
+    }
 }

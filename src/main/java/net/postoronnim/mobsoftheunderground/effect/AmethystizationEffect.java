@@ -8,6 +8,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.postoronnim.mobsoftheunderground.MobsOfTheUnderground;
@@ -21,8 +22,8 @@ public class AmethystizationEffect extends StatusEffect {
     public AmethystizationEffect(StatusEffectCategory category, int color, ParticleEffect particleEffect) {
         super(category, color, particleEffect);
         this.applySound(SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK);
-        this.addAttributeModifier(EntityAttributes.GENERIC_ARMOR, AMETHYSTIZATION_ARMOR_MODIFIER, 6f, EntityAttributeModifier.Operation.ADD_VALUE);
-        this.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, AMETHYSTIZATION_SPEED_MODIFIER, -0.2f, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        this.addAttributeModifier(EntityAttributes.ARMOR, AMETHYSTIZATION_ARMOR_MODIFIER, 6f, EntityAttributeModifier.Operation.ADD_VALUE);
+        this.addAttributeModifier(EntityAttributes.MOVEMENT_SPEED, AMETHYSTIZATION_SPEED_MODIFIER, -0.2f, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
     }
 
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
@@ -44,7 +45,7 @@ public class AmethystizationEffect extends StatusEffect {
     }
 
     @Override
-    public void onEntityRemoval(LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
+    public void onEntityRemoval(ServerWorld world, LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
         ShardlingSpawner.spawnShardlings(entity, entity.getPos(), 2);
     }
 }

@@ -2,14 +2,15 @@ package net.postoronnim.mobsoftheunderground.entity.geodite.client;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.postoronnim.mobsoftheunderground.MobsOfTheUnderground;
+import net.postoronnim.mobsoftheunderground.entity.amethyst_infected.client.AmethystInfectedRendererState;
 import net.postoronnim.mobsoftheunderground.entity.geodite.custom.GeoditeEntity;
 
-public class GeoditeModel<T extends GeoditeEntity> extends SinglePartEntityModel<T> {
+public class GeoditeModel extends EntityModel<GeoditeRendererState> {
     public static final EntityModelLayer GEODITE = new EntityModelLayer(Identifier.of(MobsOfTheUnderground.MOD_ID, "geodite"), "main");
 
     private final ModelPart root;
@@ -24,6 +25,7 @@ public class GeoditeModel<T extends GeoditeEntity> extends SinglePartEntityModel
     private final ModelPart leftLeg;
 
     public GeoditeModel(ModelPart root) {
+        super(root);
         this.root = root.getChild("Root");
         this.body = this.root.getChild("Body");
         this.core = this.body.getChild("Core");
@@ -99,21 +101,11 @@ public class GeoditeModel<T extends GeoditeEntity> extends SinglePartEntityModel
     }
 
     @Override
-    public void setAngles(T entity, float limbAngle, float limbDistance, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
+    public void setAngles(GeoditeRendererState state) {
+        this.getRootPart().traverse().forEach(ModelPart::resetTransform);
 
-        this.animateMovement(GeoditeAnimations.WALK, limbAngle, limbDistance, 2f, 2.5f);
-        this.updateAnimation(entity.idleAnimationState, GeoditeAnimations.IDLE, ageInTicks, 1f);
-        this.updateAnimation(entity.attackAnimationState, GeoditeAnimations.ATTACK, ageInTicks, 1f);
-    }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-        root.render(matrices, vertexConsumer, light, overlay, color);
-    }
-
-    @Override
-    public ModelPart getPart() {
-        return root;
+        this.animateWalking(GeoditeAnimations.WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 2f, 2.5f);
+        this.animate(state.idleAnimationState, GeoditeAnimations.IDLE, state.age, 1f);
+        this.animate(state.attackAnimationState, GeoditeAnimations.ATTACK, state.age, 1f);
     }
 }

@@ -41,14 +41,14 @@ public class LivingAmethyst extends Item {
         if (clickType.equals(ClickType.LEFT)) {
             if (stackClicked.getItem() instanceof ArmorItem armorItem) {
 
-                Identifier identifier = Identifier.of(LIVING_AMETHYST_ARMOR_MODIFIER + "_" + armorItem.getSlotType().toString().toLowerCase());
+                Identifier identifier = Identifier.of(LIVING_AMETHYST_ARMOR_MODIFIER + "_" + armorItem.hashCode());
 
                 EntityAttributeModifier modifier = new EntityAttributeModifier(identifier, 1d, EntityAttributeModifier.Operation.ADD_VALUE);
 
                 AttributeModifiersComponent component = stackClicked.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, new AttributeModifiersComponent(List.of(), true));
 
                 if (component.modifiers().isEmpty()) {
-                    component = armorItem.getAttributeModifiers();
+                    component = armorItem.getComponents().get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
                 }
 
                 ArrayList<AttributeModifiersComponent.Entry> modifiers = new ArrayList<>(component.modifiers());
@@ -57,7 +57,7 @@ public class LivingAmethyst extends Item {
                     return false;
                 }
 
-                modifiers.add(new AttributeModifiersComponent.Entry(EntityAttributes.GENERIC_ARMOR, modifier, AttributeModifierSlot.ANY));
+                modifiers.add(new AttributeModifiersComponent.Entry(EntityAttributes.ARMOR, modifier, AttributeModifierSlot.ANY));
 
                 stackClicked.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, new AttributeModifiersComponent(modifiers, true));
 

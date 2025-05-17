@@ -15,6 +15,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -41,9 +42,9 @@ public class ShardlingEntity extends HostileEntity {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2);
+                .add(EntityAttributes.MAX_HEALTH, 10)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.5)
+                .add(EntityAttributes.ATTACK_DAMAGE, 2);
     }
 
     @Override
@@ -63,13 +64,13 @@ public class ShardlingEntity extends HostileEntity {
     }
 
     @Override
-    protected void mobTick() {
-        this.getWorld().getProfiler().push("shardlingBrain");
+    protected void mobTick(ServerWorld serverWorld) {
+        Profilers.get().push("shardlingBrain");
         Brain<?> brain = this.getBrain();
         ((Brain<ShardlingEntity>)brain).tick((ServerWorld)this.getWorld(), this);
         ShardlingBrain.updateActivities(this);
-        this.getWorld().getProfiler().pop();
-        super.mobTick();
+        Profilers.get().pop();
+        super.mobTick(serverWorld);
     }
 
     @Override
@@ -114,19 +115,19 @@ public class ShardlingEntity extends HostileEntity {
     }
 
     @Override
-    public boolean tryAttack(Entity target) {
-        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+    public boolean tryAttack(ServerWorld serverWorld, Entity target) {
+        serverWorld.sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
         this.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, 1.0f, this.getSoundPitch());
         if(target instanceof LivingEntity livingEntity) {
-            if(this.getWorld().getRandom().nextFloat() > 0.66) {
+            if(serverWorld.getRandom().nextFloat() > 0.66) {
                 if(livingEntity.getStatusEffect(ModEffects.AMETHYST_INFECTION) == null
                         && livingEntity.getStatusEffect(ModEffects.AMETHYSTIZATION) == null
                         && livingEntity.getStatusEffect(ModEffects.FATAL_AMETHYSTIZATION) == null) {
                     livingEntity.setStatusEffect(new StatusEffectInstance(ModEffects.AMETHYST_INFECTION, 6000, 0, false, true, true), this);
-                    this.kill();
+                    this.kill(serverWorld);
                 }
             }
         }
-        return super.tryAttack(target);
+        return super.tryAttack(serverWorld, target);
     }
 }

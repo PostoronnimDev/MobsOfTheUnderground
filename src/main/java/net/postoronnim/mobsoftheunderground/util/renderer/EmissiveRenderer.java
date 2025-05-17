@@ -2,13 +2,14 @@ package net.postoronnim.mobsoftheunderground.util.renderer;
 
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
+import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.Identifier;
 import net.postoronnim.mobsoftheunderground.MobsOfTheUnderground;
 import net.postoronnim.mobsoftheunderground.util.feature.GlowLayer;
 
-public class EmissiveRenderer<E extends MobEntity, M extends SinglePartEntityModel<E>> extends MobEntityRenderer<E, M> {
+public class EmissiveRenderer<E extends MobEntity, S extends LivingEntityRenderState, M extends EntityModel<S>> extends MobEntityRenderer<E, S, M> {
     private final String path;
     private final String emissive;
 
@@ -20,7 +21,12 @@ public class EmissiveRenderer<E extends MobEntity, M extends SinglePartEntityMod
     }
 
     @Override
-    public Identifier getTexture(E entity) {
+    public Identifier getTexture(S state) {
         return Identifier.of(MobsOfTheUnderground.MOD_ID, path);
+    }
+
+    @Override
+    public S createRenderState() {
+        return null;
     }
 }

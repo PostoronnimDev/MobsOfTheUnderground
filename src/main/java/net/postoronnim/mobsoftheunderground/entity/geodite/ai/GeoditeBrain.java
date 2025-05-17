@@ -14,6 +14,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.math.random.Random;
 import net.postoronnim.mobsoftheunderground.entity.geodite.custom.GeoditeEntity;
 
@@ -71,7 +72,7 @@ public class GeoditeBrain {
                 Activity.CORE,
                 0,
                 ImmutableList.of(
-                        new LookAroundTask(45, 90),
+                        new LookAroundTask(UniformIntProvider.create(30, 60), 90, 45, 90),
                         new MoveToTargetTask()
                 )
         );
@@ -88,7 +89,7 @@ public class GeoditeBrain {
                                         Pair.of(new WaitTask(20, 100), 1)
                                 ))
                         ),
-                        Pair.of(3, UpdateAttackTargetTask.create(GeoditeBrain::getPreferredTarget))
+                        Pair.of(3, UpdateAttackTargetTask.create(new GeoditeTargetGetter()))
                 )
         );
     }
@@ -106,15 +107,18 @@ public class GeoditeBrain {
         );
     }
 
-    private static Optional<? extends LivingEntity> getPreferredTarget(GeoditeEntity entity) {
-        Optional<PlayerEntity> optional = entity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_VISIBLE_TARGETABLE_PLAYER);
-
-        return optional;
-    }
-
     public static void updateActivities(GeoditeEntity entity) {
         Brain<?> brain = entity.getBrain();
         brain.resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
+    }
+
+    public static class GeoditeTargetGetter implements UpdateAttackTargetTask.TargetGetter<GeoditeEntity> {
+
+        @Override
+        public Optional<? extends LivingEntity> get(ServerWorld world, GeoditeEntity entity) {
+
+            return entity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_VISIBLE_TARGETABLE_PLAYER);
+        }
     }
 
     public static class DelayedAttackTask {

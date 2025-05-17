@@ -14,6 +14,7 @@ import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -46,11 +47,11 @@ public class AmethystInfectedEntity extends HostileEntity {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes()
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 35.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.12F)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0)
-                .add(EntityAttributes.GENERIC_ARMOR, 6.0)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20);
+                .add(EntityAttributes.FOLLOW_RANGE, 35.0)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.12F)
+                .add(EntityAttributes.ATTACK_DAMAGE, 3.0)
+                .add(EntityAttributes.ARMOR, 6.0)
+                .add(EntityAttributes.MAX_HEALTH, 20);
     }
 
     @Override
@@ -77,9 +78,9 @@ public class AmethystInfectedEntity extends HostileEntity {
     }
 
     @Override
-    public boolean tryAttack(Entity target) {
-        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-        return super.tryAttack(target);
+    public boolean tryAttack(ServerWorld serverWorld, Entity target) {
+        serverWorld.sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        return super.tryAttack(serverWorld, target);
     }
 
     @Override
