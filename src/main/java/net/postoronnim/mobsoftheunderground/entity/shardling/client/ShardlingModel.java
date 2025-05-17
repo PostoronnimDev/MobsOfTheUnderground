@@ -34,12 +34,12 @@ public class ShardlingModel extends EntityModel<ShardlingRendererState> {
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 21.0F, 0.0F));
+        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 21.0F, 0.0F));
 
         ModelPartData body = root.addChild("body", ModelPartBuilder.create().uv(0, 12).cuboid(-2.0F, -3.0F, -3.0F, 4.0F, 1.0F, 6.0F, new Dilation(0.0F))
-                .uv(0, 0).cuboid(-3.0F, -2.0F, -5.0F, 6.0F, 2.0F, 10.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+                .uv(0, 0).cuboid(-3.0F, -2.0F, -5.0F, 6.0F, 2.0F, 10.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        ModelPartData bodyCrystals = body.addChild("bodyCrystals", ModelPartBuilder.create().uv(8, 19).cuboid(0.0F, -5.0F, 0.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.0F, -2.0F, -1.0F));
+        ModelPartData bodyCrystals = body.addChild("bodyCrystals", ModelPartBuilder.create().uv(8, 19).cuboid(0.0F, -5.0F, 0.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(-1.0F, -2.0F, -1.0F));
 
         ModelPartData cube_r1 = bodyCrystals.addChild("cube_r1", ModelPartBuilder.create().uv(0, 19).cuboid(-1.0F, -4.0F, -1.0F, 2.0F, 4.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.4363F));
 
@@ -49,13 +49,13 @@ public class ShardlingModel extends EntityModel<ShardlingRendererState> {
 
         ModelPartData cube_r4 = bodyCrystals.addChild("cube_r4", ModelPartBuilder.create().uv(0, 19).cuboid(-1.0F, -4.0F, -1.0F, 2.0F, 4.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(2.0F, 0.0F, 2.0F, 0.0F, 0.0F, 0.4363F));
 
-        ModelPartData leftFrontLeg = root.addChild("leftFrontLeg", ModelPartBuilder.create().uv(20, 12).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(4.0F, -1.0F, -4.0F));
+        ModelPartData leftFrontLeg = root.addChild("leftFrontLeg", ModelPartBuilder.create().uv(20, 12).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(4.0F, -1.0F, -4.0F));
 
-        ModelPartData rightFrontLeg = root.addChild("rightFrontLeg", ModelPartBuilder.create().uv(20, 12).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(-4.0F, -1.0F, -4.0F));
+        ModelPartData rightFrontLeg = root.addChild("rightFrontLeg", ModelPartBuilder.create().uv(20, 12).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(-4.0F, -1.0F, -4.0F));
 
-        ModelPartData leftBackLeg = root.addChild("leftBackLeg", ModelPartBuilder.create().uv(20, 12).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(4.0F, -1.0F, 4.0F));
+        ModelPartData leftBackLeg = root.addChild("leftBackLeg", ModelPartBuilder.create().uv(20, 12).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(4.0F, -1.0F, 4.0F));
 
-        ModelPartData rightBackLeg = root.addChild("rightBackLeg", ModelPartBuilder.create().uv(20, 12).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(-4.0F, -1.0F, 4.0F));
+        ModelPartData rightBackLeg = root.addChild("rightBackLeg", ModelPartBuilder.create().uv(20, 12).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(-4.0F, -1.0F, 4.0F));
         return TexturedModelData.of(modelData, 32, 32);
     }
 
@@ -63,7 +63,7 @@ public class ShardlingModel extends EntityModel<ShardlingRendererState> {
     public void setAngles(ShardlingRendererState state) {
         this.getRootPart().traverse().forEach(ModelPart::resetTransform);
 
-        this.animateWalking(ShardlingAnimations.WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 2f, 2.5f);
+        this.animateWalking(ShardlingAnimations.WALK, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
         this.animate(state.idleAnimationState, ShardlingAnimations.IDLE, state.age, 1f);
         this.animate(state.attackAnimationState, ShardlingAnimations.ATTACK, state.age, 1f);
     }

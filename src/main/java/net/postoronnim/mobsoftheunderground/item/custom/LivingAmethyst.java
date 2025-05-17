@@ -10,6 +10,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -39,17 +40,15 @@ public class LivingAmethyst extends Item {
         ItemStack stackClicked = slot.getStack();
 
         if (clickType.equals(ClickType.LEFT)) {
-            if (stackClicked.getItem() instanceof ArmorItem armorItem) {
 
-                Identifier identifier = Identifier.of(LIVING_AMETHYST_ARMOR_MODIFIER + "_" + armorItem.hashCode());
+
+            if (stackClicked.isIn(ItemTags.ARMOR_ENCHANTABLE)) {
+
+                AttributeModifiersComponent component = stackClicked.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
+
+                Identifier identifier = Identifier.of(LIVING_AMETHYST_ARMOR_MODIFIER + "_" + stackClicked.getItem().hashCode());
 
                 EntityAttributeModifier modifier = new EntityAttributeModifier(identifier, 1d, EntityAttributeModifier.Operation.ADD_VALUE);
-
-                AttributeModifiersComponent component = stackClicked.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, new AttributeModifiersComponent(List.of(), true));
-
-                if (component.modifiers().isEmpty()) {
-                    component = armorItem.getComponents().get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
-                }
 
                 ArrayList<AttributeModifiersComponent.Entry> modifiers = new ArrayList<>(component.modifiers());
 
@@ -59,7 +58,7 @@ public class LivingAmethyst extends Item {
 
                 modifiers.add(new AttributeModifiersComponent.Entry(EntityAttributes.ARMOR, modifier, AttributeModifierSlot.ANY));
 
-                stackClicked.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, new AttributeModifiersComponent(modifiers, true));
+                stackClicked.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, new AttributeModifiersComponent(modifiers));
 
                 player.playSoundToPlayer(SoundEvents.BLOCK_AMETHYST_BLOCK_PLACE, SoundCategory.PLAYERS, 1f, 1f);
 
@@ -71,9 +70,9 @@ public class LivingAmethyst extends Item {
         return false;
     }
 
-    @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
-        tooltip.add(Text.translatable("tooltip.mobsoftheunderground.living_amethyst.tooltip_1").formatted(Formatting.ITALIC, Formatting.BLUE));
-        tooltip.add(Text.translatable("tooltip.mobsoftheunderground.living_amethyst.tooltip_2").formatted(Formatting.ITALIC, Formatting.BLUE));
-    }
+//    @Override
+//    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+//        tooltip.add(Text.translatable("tooltip.mobsoftheunderground.living_amethyst.tooltip_1").formatted(Formatting.ITALIC, Formatting.BLUE));
+//        tooltip.add(Text.translatable("tooltip.mobsoftheunderground.living_amethyst.tooltip_2").formatted(Formatting.ITALIC, Formatting.BLUE));
+//    }
 }

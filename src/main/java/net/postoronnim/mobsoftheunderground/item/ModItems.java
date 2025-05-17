@@ -1,6 +1,7 @@
 package net.postoronnim.mobsoftheunderground.item;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

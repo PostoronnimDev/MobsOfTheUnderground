@@ -48,11 +48,11 @@ public class AmethystInfectedModel extends EntityModel<AmethystInfectedRendererS
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+        ModelPartData root = modelPartData.addChild("root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
 
-        ModelPartData head = root.addChild("head", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -24.0F, 0.0F));
+        ModelPartData head = root.addChild("head", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -24.0F, 0.0F));
 
-        ModelPartData headMain = head.addChild("headMain", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData headMain = head.addChild("headMain", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         ModelPartData headCrystals = head.addChild("headCrystals", ModelPartBuilder.create().uv(8, 51).cuboid(0.0F, -5.0F, 0.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(1.0F, -6.0F, -1.0F, 0.0F, 0.0F, 0.6981F));
 
@@ -64,15 +64,15 @@ public class AmethystInfectedModel extends EntityModel<AmethystInfectedRendererS
 
         ModelPartData cube_r4 = headCrystals.addChild("cube_r4", ModelPartBuilder.create().uv(0, 51).cuboid(-1.0F, -4.0F, -1.0F, 2.0F, 4.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(2.0F, 0.0F, 2.0F, 0.0F, 0.0F, 0.4363F));
 
-        ModelPartData body = root.addChild("body", ModelPartBuilder.create().uv(16, 16).cuboid(-4.0F, -6.0F, -2.0F, 8.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -18.0F, 0.0F));
+        ModelPartData body = root.addChild("body", ModelPartBuilder.create().uv(16, 16).cuboid(-4.0F, -6.0F, -2.0F, 8.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -18.0F, 0.0F));
 
-        ModelPartData rightArm = root.addChild("rightArm", ModelPartBuilder.create(), ModelTransform.pivot(-5.0F, -22.0F, 0.0F));
+        ModelPartData rightArm = root.addChild("rightArm", ModelPartBuilder.create(), ModelTransform.origin(-5.0F, -22.0F, 0.0F));
 
-        ModelPartData rightArmMain = rightArm.addChild("rightArmMain", ModelPartBuilder.create(), ModelTransform.pivot(-1.0F, 0.0F, 0.0F));
+        ModelPartData rightArmMain = rightArm.addChild("rightArmMain", ModelPartBuilder.create(), ModelTransform.origin(-1.0F, 0.0F, 0.0F));
 
         ModelPartData RightArm_r1 = rightArmMain.addChild("RightArm_r1", ModelPartBuilder.create().uv(40, 16).cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, -1.5708F, 0.0F, 0.0F));
 
-        ModelPartData rightArmCrystals = rightArm.addChild("rightArmCrystals", ModelPartBuilder.create().uv(8, 51).cuboid(0.0F, -5.0F, 0.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(-2.0F, -1.0F, -2.0F));
+        ModelPartData rightArmCrystals = rightArm.addChild("rightArmCrystals", ModelPartBuilder.create().uv(8, 51).cuboid(0.0F, -5.0F, 0.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(-2.0F, -1.0F, -2.0F));
 
         ModelPartData cube_r5 = rightArmCrystals.addChild("cube_r5", ModelPartBuilder.create().uv(0, 51).cuboid(-1.0F, -4.0F, -1.0F, 2.0F, 4.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.4363F));
 
@@ -80,13 +80,13 @@ public class AmethystInfectedModel extends EntityModel<AmethystInfectedRendererS
 
         ModelPartData cube_r7 = rightArmCrystals.addChild("cube_r7", ModelPartBuilder.create().uv(0, 51).cuboid(-1.0F, -4.0F, -1.0F, 2.0F, 4.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(1.0F, 0.0F, 3.0F, -0.4363F, 0.0F, 0.0F));
 
-        ModelPartData leftArm = root.addChild("leftArm", ModelPartBuilder.create(), ModelTransform.pivot(5.0F, -22.0F, 0.0F));
+        ModelPartData leftArm = root.addChild("leftArm", ModelPartBuilder.create(), ModelTransform.origin(5.0F, -22.0F, 0.0F));
 
-        ModelPartData leftArmMain = leftArm.addChild("leftArmMain", ModelPartBuilder.create(), ModelTransform.pivot(1.0F, 0.0F, 0.0F));
+        ModelPartData leftArmMain = leftArm.addChild("leftArmMain", ModelPartBuilder.create(), ModelTransform.origin(1.0F, 0.0F, 0.0F));
 
         ModelPartData LeftArm_r1 = leftArmMain.addChild("LeftArm_r1", ModelPartBuilder.create().uv(40, 16).mirrored().cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, 0.0F, 0.0F, -1.5708F, 0.0F, 0.0F));
 
-        ModelPartData leftArmCrystals = leftArm.addChild("leftArmCrystals", ModelPartBuilder.create().uv(8, 51).cuboid(0.0F, -5.0F, 0.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -1.0F, -2.0F));
+        ModelPartData leftArmCrystals = leftArm.addChild("leftArmCrystals", ModelPartBuilder.create().uv(8, 51).cuboid(0.0F, -5.0F, 0.0F, 2.0F, 5.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -1.0F, -2.0F));
 
         ModelPartData cube_r8 = leftArmCrystals.addChild("cube_r8", ModelPartBuilder.create().uv(0, 51).cuboid(-1.0F, -4.0F, -1.0F, 2.0F, 4.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(1.0F, 0.0F, -1.0F, 0.4363F, 0.0F, 0.0F));
 
@@ -94,9 +94,9 @@ public class AmethystInfectedModel extends EntityModel<AmethystInfectedRendererS
 
         ModelPartData cube_r10 = leftArmCrystals.addChild("cube_r10", ModelPartBuilder.create().uv(0, 51).cuboid(-1.0F, -4.0F, -1.0F, 2.0F, 4.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(2.0F, 0.0F, 2.0F, 0.0F, 0.0F, 0.4363F));
 
-        ModelPartData rightLeg = root.addChild("rightLeg", ModelPartBuilder.create().uv(0, 16).cuboid(-2.1F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.9F, -12.0F, 0.0F));
+        ModelPartData rightLeg = root.addChild("rightLeg", ModelPartBuilder.create().uv(0, 16).cuboid(-2.1F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(-1.9F, -12.0F, 0.0F));
 
-        ModelPartData leftLeg = root.addChild("leftLeg", ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(-1.9F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(1.9F, -12.0F, 0.0F));
+        ModelPartData leftLeg = root.addChild("leftLeg", ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(-1.9F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(1.9F, -12.0F, 0.0F));
         return TexturedModelData.of(modelData, 64, 64);
     }
 
@@ -104,7 +104,7 @@ public class AmethystInfectedModel extends EntityModel<AmethystInfectedRendererS
     public void setAngles(AmethystInfectedRendererState state) {
         this.getRootPart().traverse().forEach(ModelPart::resetTransform);
 
-        this.animateWalking(AmethystInfectedAnimations.WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 8f, 10f);
+        this.animateWalking(AmethystInfectedAnimations.WALK, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8f, 10f);
         this.animate(state.idleAnimationState, AmethystInfectedAnimations.IDLE, state.age, 1f);
         this.animate(state.attackAnimationState, AmethystInfectedAnimations.ATTACK, state.age, 1f);
     }

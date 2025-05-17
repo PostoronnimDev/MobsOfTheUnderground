@@ -23,9 +23,9 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 
-        itemModelGenerator.registerSpawnEgg(ModItems.GEODITE_SPAWN_EGG, 0x3a3b48, 0xa678f1);
-        itemModelGenerator.registerSpawnEgg(ModItems.SHARDLING_SPAWN_EGG, 0x797979, 0xfecbe6);
-        itemModelGenerator.registerSpawnEgg(ModItems.AMETHYST_INFECTED_SPAWN_EGG, 0x60692d, 0xcfa0f3);
+        itemModelGenerator.register(ModItems.GEODITE_SPAWN_EGG, Models.GENERATED);
+        itemModelGenerator.register(ModItems.SHARDLING_SPAWN_EGG, Models.GENERATED);
+        itemModelGenerator.register(ModItems.AMETHYST_INFECTED_SPAWN_EGG, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.LIVING_AMETHYST, Models.GENERATED);
         itemModelGenerator.register(ModItems.AMETHYST_INFECTED_FLESH, Models.GENERATED);

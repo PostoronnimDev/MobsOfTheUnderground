@@ -40,19 +40,19 @@ public class GeoditeModel extends EntityModel<GeoditeRendererState> {
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData Root = modelPartData.addChild("Root", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 3.0F, 0.0F));
+        ModelPartData Root = modelPartData.addChild("Root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 3.0F, 0.0F));
 
         ModelPartData Body = Root.addChild("Body", ModelPartBuilder.create().uv(60, 34).cuboid(-10.0F, 4.0F, -3.0F, 20.0F, 8.0F, 11.0F, new Dilation(0.0F))
                 .uv(36, 87).cuboid(-4.0F, -4.0F, -5.0F, 8.0F, 8.0F, 13.0F, new Dilation(0.0F))
                 .uv(36, 62).cuboid(-4.0F, -13.0F, -8.0F, 8.0F, 9.0F, 16.0F, new Dilation(0.0F))
                 .uv(0, 0).cuboid(4.0F, -15.0F, -9.0F, 9.0F, 19.0F, 17.0F, new Dilation(0.0F))
                 .uv(52, 0).cuboid(-12.0F, -14.0F, -8.0F, 8.0F, 18.0F, 16.0F, new Dilation(0.0F))
-                .uv(0, 36).cuboid(-5.0F, -16.0F, -5.0F, 16.0F, 12.0F, 14.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+                .uv(0, 36).cuboid(-5.0F, -16.0F, -5.0F, 16.0F, 12.0F, 14.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
         ModelPartData Core = Body.addChild("Core", ModelPartBuilder.create().uv(103, 66).cuboid(-10.0F, -14.0F, -6.0F, 4.0F, 4.0F, 1.0F, new Dilation(0.0F))
-                .uv(114, 64).cuboid(-11.0F, -15.0F, -5.0F, 6.0F, 6.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(8.0F, 12.0F, -1.0F));
+                .uv(114, 64).cuboid(-11.0F, -15.0F, -5.0F, 6.0F, 6.0F, 1.0F, new Dilation(0.0F)), ModelTransform.origin(8.0F, 12.0F, -1.0F));
 
-        ModelPartData BodyCrystals = Body.addChild("BodyCrystals", ModelPartBuilder.create().uv(105, 113).cuboid(-7.0F, -18.0F, -2.0F, 5.0F, 10.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(8.0F, -7.0F, 2.0F));
+        ModelPartData BodyCrystals = Body.addChild("BodyCrystals", ModelPartBuilder.create().uv(105, 113).cuboid(-7.0F, -18.0F, -2.0F, 5.0F, 10.0F, 5.0F, new Dilation(0.0F)), ModelTransform.origin(8.0F, -7.0F, 2.0F));
 
         ModelPartData cube_r1 = BodyCrystals.addChild("cube_r1", ModelPartBuilder.create().uv(116, 96).cuboid(-1.5F, -5.0F, -2.5F, 3.0F, 10.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.5F, -2.0F, 8.5F, -0.6429F, 0.1321F, 0.1741F));
 
@@ -73,9 +73,9 @@ public class GeoditeModel extends EntityModel<GeoditeRendererState> {
         ModelPartData cube_r9 = BodyCrystals.addChild("cube_r9", ModelPartBuilder.create().uv(116, 96).cuboid(-2.0F, -1.0F, -2.0F, 3.0F, 6.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(-1.0F, -12.0F, -5.0F, 0.1298F, -0.017F, 0.1298F));
 
         ModelPartData RightArm = Root.addChild("RightArm", ModelPartBuilder.create().uv(0, 62).cuboid(-4.0F, -6.5F, -5.0F, 8.0F, 33.0F, 10.0F, new Dilation(0.0F))
-                .uv(104, 54).cuboid(-3.0F, -7.5F, -3.0F, 6.0F, 1.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(-16.0F, -5.5F, -5.0F));
+                .uv(104, 54).cuboid(-3.0F, -7.5F, -3.0F, 6.0F, 1.0F, 6.0F, new Dilation(0.0F)), ModelTransform.origin(-16.0F, -5.5F, -5.0F));
 
-        ModelPartData RightArmCrystals = RightArm.addChild("RightArmCrystals", ModelPartBuilder.create().uv(116, 96).cuboid(2.5F, -6.0F, -1.5F, 3.0F, 9.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(-3.5F, -9.5F, 0.5F));
+        ModelPartData RightArmCrystals = RightArm.addChild("RightArmCrystals", ModelPartBuilder.create().uv(116, 96).cuboid(2.5F, -6.0F, -1.5F, 3.0F, 9.0F, 3.0F, new Dilation(0.0F)), ModelTransform.origin(-3.5F, -9.5F, 0.5F));
 
         ModelPartData cube_r10 = RightArmCrystals.addChild("cube_r10", ModelPartBuilder.create().uv(116, 96).cuboid(-1.5F, -2.0F, -1.5F, 3.0F, 6.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.3054F));
 
@@ -84,9 +84,9 @@ public class GeoditeModel extends EntityModel<GeoditeRendererState> {
         ModelPartData cube_r12 = RightArmCrystals.addChild("cube_r12", ModelPartBuilder.create().uv(116, 96).cuboid(-1.5F, -3.0F, -1.5F, 3.0F, 6.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(5.0F, 0.0F, 3.0F, -0.3491F, 0.0F, 0.0F));
 
         ModelPartData LeftArm = Root.addChild("LeftArm", ModelPartBuilder.create().uv(0, 62).mirrored().cuboid(-4.0F, -6.5F, -5.0F, 8.0F, 33.0F, 10.0F, new Dilation(0.0F)).mirrored(false)
-                .uv(104, 54).mirrored().cuboid(-3.0F, -7.5F, -3.0F, 6.0F, 1.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(17.0F, -5.5F, -5.0F));
+                .uv(104, 54).mirrored().cuboid(-3.0F, -7.5F, -3.0F, 6.0F, 1.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(17.0F, -5.5F, -5.0F));
 
-        ModelPartData LeftArmCrystals = LeftArm.addChild("LeftArmCrystals", ModelPartBuilder.create().uv(99, 96).cuboid(-1.5F, -8.0F, -1.5F, 4.0F, 10.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.5F, -9.5F, 0.5F));
+        ModelPartData LeftArmCrystals = LeftArm.addChild("LeftArmCrystals", ModelPartBuilder.create().uv(99, 96).cuboid(-1.5F, -8.0F, -1.5F, 4.0F, 10.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(-1.5F, -9.5F, 0.5F));
 
         ModelPartData cube_r13 = LeftArmCrystals.addChild("cube_r13", ModelPartBuilder.create().uv(116, 96).cuboid(-1.5F, -3.0F, -1.5F, 3.0F, 6.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(3.0F, 0.0F, 3.0F, -0.3491F, 0.0F, 0.0F));
 
@@ -94,9 +94,9 @@ public class GeoditeModel extends EntityModel<GeoditeRendererState> {
 
         ModelPartData cube_r15 = LeftArmCrystals.addChild("cube_r15", ModelPartBuilder.create().uv(116, 96).cuboid(-1.5F, -2.0F, -1.5F, 3.0F, 5.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(5.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.3491F));
 
-        ModelPartData RightLeg = Root.addChild("RightLeg", ModelPartBuilder.create().uv(0, 105).cuboid(-4.0F, -0.5F, -3.5F, 8.0F, 9.0F, 8.0F, new Dilation(0.0F)), ModelTransform.pivot(-6.0F, 12.5F, 0.5F));
+        ModelPartData RightLeg = Root.addChild("RightLeg", ModelPartBuilder.create().uv(0, 105).cuboid(-4.0F, -0.5F, -3.5F, 8.0F, 9.0F, 8.0F, new Dilation(0.0F)), ModelTransform.origin(-6.0F, 12.5F, 0.5F));
 
-        ModelPartData LeftLeg = Root.addChild("LeftLeg", ModelPartBuilder.create().uv(0, 105).mirrored().cuboid(-4.0F, -0.5F, -4.0F, 8.0F, 9.0F, 8.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(6.0F, 12.5F, 1.0F));
+        ModelPartData LeftLeg = Root.addChild("LeftLeg", ModelPartBuilder.create().uv(0, 105).mirrored().cuboid(-4.0F, -0.5F, -4.0F, 8.0F, 9.0F, 8.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.origin(6.0F, 12.5F, 1.0F));
         return TexturedModelData.of(modelData, 128, 128);
     }
 
@@ -104,7 +104,7 @@ public class GeoditeModel extends EntityModel<GeoditeRendererState> {
     public void setAngles(GeoditeRendererState state) {
         this.getRootPart().traverse().forEach(ModelPart::resetTransform);
 
-        this.animateWalking(GeoditeAnimations.WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 2f, 2.5f);
+        this.animateWalking(GeoditeAnimations.WALK, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
         this.animate(state.idleAnimationState, GeoditeAnimations.IDLE, state.age, 1f);
         this.animate(state.attackAnimationState, GeoditeAnimations.ATTACK, state.age, 1f);
     }
