@@ -30,7 +30,8 @@ public class FatalAmethystizationEffect extends StatusEffect {
         this.addAttributeModifier(EntityAttributes.MOVEMENT_SPEED, FATAL_AMETHYSTIZATION_SPEED_MODIFIER, -0.3f, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
     }
 
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+    @Override
+    public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
 
         if (entity.getStatusEffect(ModEffects.FATAL_AMETHYSTIZATION).getDuration() <= 1) {
             if(entity.getWorld() instanceof ServerWorld serverWorld) {

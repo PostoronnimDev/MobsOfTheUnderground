@@ -46,7 +46,8 @@ public class AmethystInfectionEffect extends StatusEffect {
         }
     }
 
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+    @Override
+    public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
 
         if (entity.getStatusEffect(ModEffects.AMETHYST_INFECTION).getDuration() <= 1) {
             entity.addStatusEffect(new StatusEffectInstance(ModEffects.AMETHYSTIZATION,
