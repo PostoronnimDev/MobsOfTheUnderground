@@ -2,6 +2,7 @@ package net.postoronnim.mobsoftheunderground;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.postoronnim.mobsoftheunderground.datagen.ModEntityTypeTagProvider;
 import net.postoronnim.mobsoftheunderground.datagen.ModModelProvider;
 
 public class MobsOfTheUndergroundDataGenerator implements DataGeneratorEntrypoint {
@@ -10,5 +11,6 @@ public class MobsOfTheUndergroundDataGenerator implements DataGeneratorEntrypoin
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
 		pack.addProvider(ModModelProvider::new);
+		pack.addProvider(ModEntityTypeTagProvider::new);
 	}
 }
